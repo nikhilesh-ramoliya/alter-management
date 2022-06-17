@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/alter-management/static/css/main.ed34d0c5.css",
+    "main.js": "/alter-management/static/js/main.a44f25c4.js",
+    "index.html": "/alter-management/index.html",
+    "main.ed34d0c5.css.map": "/alter-management/static/css/main.ed34d0c5.css.map",
+    "main.a44f25c4.js.map": "/alter-management/static/js/main.a44f25c4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ed34d0c5.css",
+    "static/js/main.a44f25c4.js"
+  ]
+}
