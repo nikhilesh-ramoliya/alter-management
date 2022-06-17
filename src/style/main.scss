@@ -1,0 +1,177 @@
+li,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  // border-bottom: 2px solid white;
+  padding: 10px;
+  color: white;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+}
+
+li:hover > .link {
+  color: red;
+  background: white;
+}
+
+li:hover {
+  background: white;
+  color: red;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.app {
+  width: 1200px;
+  margin: auto;
+}
+
+.header {
+  background-color: red;
+  text-align: center;
+  color: white;
+  height: 50px;
+  width: 1200px;
+  font-size: 30px;
+  position: fixed;
+  z-index: 10;
+  top: 0px;
+  border-bottom: 2px solid white;
+}
+
+.sidebar_contant {
+  width: 1200px;
+  display: flex;
+}
+
+.sidebar {
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  ul {
+    display: flex;
+  }
+  width: 1200px;
+  position: fixed;
+  background-color: red;
+  top: 50px;
+}
+
+.contant {
+  width: 1200px;
+  position: relative;
+  top: 100px;
+  padding: 10px;
+  scrollbar-color: transparent;
+}
+
+table,
+tr,
+td,
+th {
+  border: 1px solid black;
+}
+td,
+th {
+  word-wrap: break-word;
+  padding: 5px;
+}
+.contact_address {
+  word-wrap: break-word;
+  width: 200px;
+  height: 200px;
+
+  overflow: hidden;
+}
+table {
+  width: 990px;
+  margin: auto;
+}
+form {
+  width: 500px;
+  margin: auto;
+}
+label {
+  width: 100px;
+  font-size: 20px;
+  font-variant: small-caps;
+  font-weight: 700;
+}
+
+input,
+button {
+  font-size: 20px;
+  font-weight: 700;
+  width: 100%;
+}
+button {
+  margin: 20px 0;
+}
+
+.products {
+  font-variant: small-caps;
+  width: 1200px;
+  form {
+    box-shadow: 10px 10px 30px 1px rgba(0, 0, 0, 0.26);
+    border-radius: 10px;
+    height: 690px;
+    padding: 30px;
+    input {
+      width: 100%;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    fieldset {
+      border: 2px solid rgba($color: black, $alpha: 0.2);
+      display: flex;
+      legend {
+        font-size: 20px;
+        margin: 0%;
+      }
+    }
+    input[type="file"] {
+      background-color: white;
+      color: black;
+    }
+    .file {
+      border: 2px solid rgba($color: black, $alpha: 0.2);
+    }
+  }
+  table {
+    margin-top: 20px;
+    width: 1000px;
+    td {
+      margin: 0%;
+      padding: 10px;
+      button {
+        background-color: red;
+        margin: 10px 0px;
+      }
+    }
+  }
+}
+
+.banner {
+  table {
+    td {
+      height: 50px;
+
+      img {
+        height: 50px;
+      }
+    }
+  }
+}
