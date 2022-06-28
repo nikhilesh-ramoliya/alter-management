@@ -12,31 +12,51 @@ function Banner() {
     name: "",
     image: ""
   })
+  const [imageselected, setImageselected] = useState("")
 
 
 
   const fatchbanner = async () => {
-    const data = await axios.get("http://alter-backend.herokuapp.com/banner")
+    const data = await axios.get("http://localhost:3000/banner")
     dispatch(getbanner(data.data.data));
     ;
   }
   const changed = (e) => {
     setbanner({
       ...banner,
-      name: e.target.value
+      name: e.target.value,
     })
   }
 
+  const formdata = new FormData();
   const submitted = async (e) => {
     e.preventDefault();
-    await axios.post("http://alter-backend.herokuapp.com/banner", banner);
+    // console.log(imageselected);
+    formdata.append("file", imageselected);
+    formdata.append("upload_preset", "gliquzs3");
+    console.log(formdata)
+    const a = await axios.post("https://api.cloudinary.com/v1_1/shree8469175299/image/upload", formdata)
+    const url = a.data.url;
+    setbanner({
+      ...banner,
+      image: formdata
+    });
+    // setbanner({
+    //   ...banner,
+    //   image: url
+    // });
+    // setbanner({
+    //   ...banner,
+    //   image: url
+    // });
+    const b = await axios.post("http://localhost:3000/banner", banner);
     setTimeout(() => {
       fatchbanner();
     }, 500);
   }
 
-  const deleted = async (id)=>{
-    await axios.delete("http://alter-backend.herokuapp.com/banner/" + id);
+  const deleted = async (id) => {
+    await axios.delete("http://localhost:3000/banner/" + id);
     setTimeout(() => {
       fatchbanner();
     }, 500);
@@ -45,7 +65,7 @@ function Banner() {
 
   useEffect(() => {
     fatchbanner();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -63,15 +83,9 @@ function Banner() {
         <div className='form-group'>
           <label htmlFor="Image">Image</label>
           <div className="form-control file">
-            <Filebase multiple={false} className='filebase' type="file" name="image" onDone={
-              (base64) => {
-                console.log(base64);
-                setbanner({
-                  ...banner,
-                  image: base64.base64
-                })
-              }
-            } />
+            <input type="file" name='image' onChange={(e) => {
+              setImageselected(e.target.files[0])
+            }} />
           </div>
         </div>
 
@@ -80,45 +94,45 @@ function Banner() {
       </form>
 
       {/*---------------------------------- table--------------------------- */}
-      {banners.length!==0 ? (
+      {banners.length !== 0 ? (
         <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Image</th>
-            <th>Button</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            (banners.length !== 0) ?
-              banners.map((banner) => {
-                return (
-                  <tr key={banner._id}>
-                    <td>{banner.name}</td>
-                    <td><img src={banner.image} alt={banner.image} /></td>
-                    <td><button className='btn btn-danger' onClick={()=>{
-                      deleted(banner._id);
-                    }}>delete</button></td>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Image</th>
+              <th>Button</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              (banners.length !== 0) ?
+                banners.map((banner) => {
+                  return (
+                    <tr key={banner._id}>
+                      <td>{banner.name}</td>
+                      <td><img src={banner.image} alt={banner.image} /></td>
+                      <td><button className='btn btn-danger' onClick={() => {
+                        deleted(banner._id);
+                      }}>delete</button></td>
+                    </tr>
+                  )
+                })
+                : (
+                  <tr >
+                    <td></td>
+                    <td></td>
+                    <td></td>
                   </tr>
                 )
-              })
-              : (
-                <tr >
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-              )
-          }
-        </tbody>
-      </table>
-      ):(
+            }
+          </tbody>
+        </table>
+      ) : (
         <div className='d-flex justify-content-center mt-5'>
-          <div class="spinner-border text-center text-danger" role="status">
-            <span class="visually-hidden">Loading...</span>
+          <div className="spinner-border text-center text-danger" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
-          </div>
+        </div>
       )}
     </div>
   )

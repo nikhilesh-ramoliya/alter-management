@@ -8,7 +8,7 @@ import { getproduct } from '../../redux/Products_actions';
 
 
 function Products() {
-
+  const [url, seturl] = useState("");
   const [Product, SetProduct] = useState({
     name: "",
     image: "",
@@ -40,52 +40,95 @@ function Products() {
   const dispatch = useDispatch();
   const products = useSelector(state => state.product);
   const fetchproduct = async () => {
-    const a = await axios.get('http://alter-backend.herokuapp.com/product');
-    console.log(a.data.data);
+    const a = await axios.get('http://localhost:3000/product');
     dispatch(getproduct(a.data.data));
   }
 
+  const [imageselected, setImageselected] = useState(null)
+  const formdata = new FormData();
 
+  // const submitted = async (e) => {
+  //   e.preventDefault();
+  //   formdata.append("file", imageselected);
+  //   formdata.append("upload_preset", "gliquzs3");
+  //   const a = await axios.post("https://api.cloudinary.com/v1_1/shree8469175299/image/upload", formdata)
+  //   SetProduct({
+  //     ...Product,
+  //     image: a.data.url
+  //   });
+  //   console.log(Product);
+  //   const c = async () => {
+  //     const b = await axios.post("http://localhost:3000/product", Product);
+  //   }
+  //   setTimeout(() => {
+  //     c();
+  //     fetchproduct();
+  //   }, 500);
+  // }
   const submitted = async (e) => {
     e.preventDefault();
-    if (Product._id == undefined) {
-      const a = await axios.post('http://alter-backend.herokuapp.com/product', Product);
-      console.log(a);
-      fetchproduct();
-    } else {
-      const data = await axios.put("http://alter-backend.herokuapp.com/product/" + Product._id, Product);
-      console.log(data.data.data);
-      setTimeout(() => {
-        fetchproduct();
-      }, 500);
-      SetProduct({
-        name: "",
-        image: "",
-        description: "",
-        price: {
-          wholesale: "",
-          retail: "",
-        },
-        longDescription: ""
-      })
-    }
+    const a = await makeurl();
+    console.log(a);
+
+    
+
+    SetProduct({
+      ...Product,
+      image: a
+    });
   }
+
+  const makeurl = () => {
+    formdata.append("file", imageselected);
+    formdata.append("upload_preset", "gliquzs3");
+    axios.post("https://api.cloudinary.com/v1_1/shree8469175299/image/upload", formdata)
+      .then((res) => {
+        seturl(res.data.url);
+        return res.data.url;
+      }).then(()=>{
+        console.log("url: " + url);
+      })
+    setTimeout(() => {
+      SetProduct({
+        ...Product,
+        image: url
+      })
+      console.log(Product);
+    }, 1000);
+
+  }
+
+  const resetform = () => {
+    SetProduct({
+      name: "",
+      image: "",
+      description: "",
+      price: {
+        wholesale: "",
+        retail: "",
+      },
+      longDescription: ""
+    })
+
+  }
+
 
   const deleted = async (id) => {
     console.log(id);
-    const a = await axios.delete("http://alter-backend.herokuapp.com/product/" + id);
+    const a = await axios.delete("http://localhost:3000/product/" + id);
     console.log(a);
     setTimeout(() => {
       fetchproduct();
     }, 500);
   }
 
+
+
   useEffect(() => {
     fetchproduct();
   }
     , [])
 
-  console.log(products);
   return (
     <div className='products'>
       <h1>Products Count = {products.length}</h1>
@@ -112,12 +155,9 @@ function Products() {
 
         <label htmlFor="discription">Image</label>
         <div className="form-control file">
-          <Filebase multiple={false} className='filebase' type="file" name="image" onDone={
-            (base64) => {
-              console.log(base64);
-              SetProduct({ ...Product, image: base64.base64 })
-            }
-          } />
+          <input type="file" name='image' onChange={(e) => {
+            setImageselected(e.target.files[0])
+          }} />
         </div>
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
@@ -144,7 +184,7 @@ function Products() {
                 <td>
                   <button className='btn btn-danger' onClick={() => { deleted(product._id) }}>delete</button>
                   <button className='btn btn-danger' onClick={async () => {
-                    const data = await axios.put("http://alter-backend.herokuapp.com/product/" + product._id);
+                    const data = await axios.put("http://localhost:3000/product/" + product._id);
                     console.log(data.data.data);
                     SetProduct(data.data.data)
                   }}>update</button>
@@ -157,9 +197,9 @@ function Products() {
       </table>)
         : (
           <div className='d-flex justify-content-center mt-5'>
-          <div class="spinner-border text-center text-danger" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
+            <div className="spinner-border text-center text-danger" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
           </div>
         )}
     </div>

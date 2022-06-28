@@ -11,7 +11,7 @@ function Contacts() {
 
 
   const fetchuser = async () => {
-    const user = await axios.get("http://alter-backend.herokuapp.com/contact")
+    const user = await axios.get("http://localhost:3000/contact")
     console.log(user.data.data)
     dispatch(getcontacts(user.data.data))
   }
@@ -26,7 +26,7 @@ function Contacts() {
     const data = {
       _id: id
     }
-    const response = await axios.delete("http://alter-backend.herokuapp.com/contact/" + id)
+    const response = await axios.delete("http://localhost:3000/contact/" + id)
     console.log(response);
     fetchuser();
   }
@@ -35,7 +35,7 @@ function Contacts() {
     const data = {
       address: address
     }
-    const response = await axios.put("http://alter-backend.herokuapp.com/contact/" + id, data)
+    const response = await axios.put("http://localhost:3000/contact/" + id, data)
     fetchuser();
   }
 
@@ -98,8 +98,8 @@ function Contacts() {
       </div>
       ):(
         <div className='d-flex justify-content-center mt-5'>
-          <div class="spinner-border text-center text-danger" role="status">
-            <span class="visually-hidden">Loading...</span>
+          <div className="spinner-border text-center text-danger" role="status">
+            <span className="visually-hidden">Loading...</span>
           </div>
           </div>
       )}

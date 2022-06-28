@@ -11,9 +11,13 @@ function Contant() {
     return (
         <div className='contant'>
                 <Routes>
-                    <Route path="/contacts" element={<Contacts/>} />
-                    <Route path="/products" element={<Products/>} />
-                    <Route path="/banner" element={<Banner/>} />
+
+                    <Route path="/alter-management/contacts" element={<Contacts/>} />
+                    <Route path="/alter-management/" element={
+                        <h1>hello this is dashboard</h1>
+                    } />
+                    <Route path="/alter-management/products" element={<Products/>} />
+                    <Route path="/alter-management/banner" element={<Banner/>} />
                 </Routes>
         </div>
     )
