@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/alter-management/static/css/main.ed34d0c5.css",
-    "main.js": "/alter-management/static/js/main.19870d04.js",
+    "main.js": "/alter-management/static/js/main.f1b4c00d.js",
     "index.html": "/alter-management/index.html",
     "main.ed34d0c5.css.map": "/alter-management/static/css/main.ed34d0c5.css.map",
-    "main.19870d04.js.map": "/alter-management/static/js/main.19870d04.js.map"
+    "main.f1b4c00d.js.map": "/alter-management/static/js/main.f1b4c00d.js.map"
   },
   "entrypoints": [
     "static/css/main.ed34d0c5.css",
-    "static/js/main.19870d04.js"
+    "static/js/main.f1b4c00d.js"
   ]
 }
